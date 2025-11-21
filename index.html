@@ -16,184 +16,75 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
         }
 
-        .header {
+        /* Hero Section with Big Microphone */
+        .hero-section {
             text-align: center;
+            padding: 60px 20px 80px;
             color: white;
-            padding: 30px 20px;
-            max-width: 800px;
-            margin: 0 auto 30px;
+            position: relative;
         }
 
-        .header h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .header p {
-            font-size: 18px;
-            opacity: 0.95;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 50px;
-        }
-
-        .medical-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            margin: 0 auto 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-        }
-
-        .section-title {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .intro-text {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        .info-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .info-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-        }
-
-        .info-card-icon {
-            font-size: 40px;
+        .hero-title {
+            font-size: 48px;
             margin-bottom: 15px;
-        }
-
-        .info-card h3 {
-            color: #667eea;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .info-card p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .process-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .process-section h3 {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0 auto 15px;
-        }
-
-        .step p {
-            color: #333;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .cta-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-        }
-
-        .cta-section h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .cta-section p {
-            font-size: 18px;
-            margin-bottom: 25px;
-            opacity: 0.95;
-        }
-
-        .voice-prompt {
-            background: white;
-            color: #667eea;
-            padding: 20px 40px;
-            border-radius: 50px;
-            font-size: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
             font-weight: 700;
-            display: inline-flex;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Big Microphone Button */
+        .big-mic-container {
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .big-mic-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s infinite;
+            justify-content: center;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: pulse-ring 2s infinite;
         }
 
-        .mic-icon {
-            font-size: 30px;
-            animation: bounce 1s infinite;
+        .big-mic-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 25px 80px rgba(20, 184, 166, 0.6);
         }
 
-        @keyframes pulse {
+        .big-mic-button::before {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 3px solid rgba(20, 184, 166, 0.5);
+            animation: pulse-outer 2s infinite;
+        }
+
+        .mic-icon-large {
+            font-size: 80px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes pulse-ring {
             0%, 100% {
                 transform: scale(1);
             }
@@ -202,124 +93,312 @@
             }
         }
 
-        @keyframes bounce {
-            0%, 100% {
+        @keyframes pulse-outer {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .talk-instruction {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fade-in-up 1s ease;
+        }
+
+        .tap-instruction {
+            font-size: 18px;
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
-            50% {
-                transform: translateY(-5px);
-            }
         }
 
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+        /* Main Container */
+        .container {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px 50px;
         }
 
-        .benefit-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .section-title {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
         }
 
-        .benefit-icon {
-            font-size: 24px;
-        }
-
-        .benefit-text {
+        .intro-text {
             color: #555;
-            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 18px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .privacy-notice {
             background: #fff3cd;
             border: 2px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 50px;
             text-align: center;
         }
 
         .privacy-notice h4 {
             color: #856404;
             margin-bottom: 10px;
-            font-size: 18px;
+            font-size: 20px;
+            font-weight: 700;
         }
 
         .privacy-notice p {
             color: #856404;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            color: #14B8A6;
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .info-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .process-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .process-section h3 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .step p {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .benefit-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .benefit-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
         }
 
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             color: #999;
             font-size: 14px;
-            border-top: 1px solid #eee;
-            margin-top: 40px;
+            border-top: 2px solid #eee;
+            margin-top: 50px;
+        }
+
+        .footer-info {
+            margin-bottom: 20px;
+        }
+
+        .footer-info strong {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .footer-tags {
+            margin-top: 15px;
+            color: #666;
+            line-height: 1.8;
         }
 
         .footer-links {
-            margin-top: 15px;
+            margin: 25px 0;
         }
 
         .footer-links a {
-            color: #667eea;
+            color: #14B8A6;
             text-decoration: none;
             margin: 0 15px;
+            font-weight: 500;
         }
 
         .footer-links a:hover {
             text-decoration: underline;
         }
 
-        /* Vapi Widget Styling */
-        vapi-widget {
-            position: fixed !important;
-            bottom: 30px !important;
-            right: 30px !important;
-        }
-
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .big-mic-button {
+                width: 160px;
+                height: 160px;
+            }
+
+            .big-mic-button::before {
+                width: 180px;
+                height: 180px;
+            }
+
+            .mic-icon-large {
+                font-size: 60px;
+            }
+
+            .talk-instruction {
+                font-size: 22px;
+            }
+
             .container {
-                padding: 30px 20px;
+                padding: 40px 25px;
             }
 
-            .header h1 {
-                font-size: 28px;
-            }
-
-            .header p {
-                font-size: 16px;
+            .section-title {
+                font-size: 26px;
             }
 
             .process-steps {
-                flex-direction: column;
-            }
-
-            .voice-prompt {
-                font-size: 16px;
-                padding: 15px 30px;
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🏥 Medical Pre-Consultation Assistant</h1>
-        <p>Complete Your Health Assessment Before Your Doctor Visit</p>
+    <!-- Hero Section with Big Microphone -->
+    <div class="hero-section">
+        <h1 class="hero-title">🏥 Medical Pre-Consultation Assistant</h1>
+        <p class="hero-subtitle">Complete Your Health Assessment Before Your Doctor Visit</p>
+        
+        <div class="big-mic-container">
+            <div class="big-mic-button" onclick="document.querySelector('vapi-widget').click()">
+                <div class="mic-icon-large">🎤</div>
+            </div>
+            <p class="talk-instruction">TAP TO TALK WITH AI</p>
+            <p class="tap-instruction">Click the microphone above to start your assessment</p>
+        </div>
     </div>
 
+    <!-- Main Content Container -->
     <div class="container">
-        <div class="medical-icon">🩺</div>
-        
         <h2 class="section-title">Save Time. Get Better Care.</h2>
         
         <p class="intro-text">
@@ -355,11 +434,11 @@
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <p>Click the microphone button below</p>
+                    <p>Click the microphone button above</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <p>Talk to our AI assistant</p>
+                    <p>Talk naturally to our AI assistant</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -367,17 +446,8 @@
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <p>Summary sent to your doctor</p>
+                    <p>Summary automatically sent to doctor</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <h2>Ready to Start?</h2>
-            <p>Click the microphone button in the bottom right corner and start talking!</p>
-            <div class="voice-prompt">
-                <span class="mic-icon">🎤</span>
-                <span>CLICK TO TALK WITH ME</span>
             </div>
         </div>
 
@@ -401,29 +471,43 @@
         </div>
 
         <div class="footer">
-            <p><strong>What Our Assistant Will Ask You:</strong></p>
-            <p style="margin-top: 10px; color: #666;">
-                Personal information • Medical history • Current medications • Allergies • 
-                Current symptoms • Previous treatments • Family medical history • Lifestyle factors
-            </p>
+            <div class="footer-info">
+                <p><strong>What Our Assistant Will Ask You:</strong></p>
+                <div class="footer-tags">
+                    Personal information • Medical history • Current medications • Allergies • 
+                    Current symptoms • Previous treatments • Family medical history • Lifestyle factors
+                </div>
+            </div>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="#">Contact Support</a>
             </div>
-            <p style="margin-top: 20px;">© 2024 Ultimate Digital Solutions | Medical Pre-Consultation Service</p>
+            <p style="margin-top: 20px; font-weight: 500;">© 2024 Ultimate Digital Solutions | Medical Pre-Consultation Service</p>
         </div>
     </div>
 
-    <!-- Vapi Widget Integration -->
-    <vapi-widget 
-        assistant-id="9145e8f0-54ed-4f5e-99b5-10f87a76a2c3" 
-        public-key="6a97989a-fa9a-4f07-9cb0-12cf9af20ae0">
-    </vapi-widget>
-    <script
-        src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js"
-        async
-        type="text/javascript">
-    </script>
+    <!-- Vapi Widget Integration with Custom Configuration -->
+    <vapi-widget
+        public-key="6a97989a-fa9a-4f07-9cb0-12cf9af20ae0"
+        assistant-id="9145e8f0-54ed-4f5e-99b5-10f87a76a2c3"
+        mode="voice"
+        theme="dark"
+        base-bg-color="#000000"
+        accent-color="#14B8A6"
+        cta-button-color="#000000"
+        cta-button-text-color="#ffffff"
+        border-radius="large"
+        size="full"
+        position="bottom-right"
+        title="TALK WITH AI"
+        start-button-text="Start"
+        end-button-text="End Call"
+        chat-first-message="Hey, How can I help you today?"
+        chat-placeholder="Type your message..."
+        voice-show-transcript="true"
+        consent-required="false"
+    ></vapi-widget>
+    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
 </body>
 </html>
