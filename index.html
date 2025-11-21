@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Assistant | Pre-Visit Health Assessment</title>
+    <meta name="description" content="Complete your medical assessment before your doctor visit. HIPAA-compliant AI voice assistant - Experimental Research Project.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066CC;
+            --secondary-teal: #14B8A6;
+            --success-green: #10B981;
+            --neutral-white: #FFFFFF;
+            --neutral-light: #F8FAFC;
+            --neutral-gray: #64748B;
+            --neutral-dark: #1E293B;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', system-ui, sans-serif;
+            background: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Top Trust Bar */
+        .trust-bar {
+            background: var(--neutral-dark);
+            color: var(--neutral-white);
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .trust-bar span {
+            margin: 0 20px;
+            display: inline-block;
+        }
+
+        .trust-bar-icon {
+            margin-right: 5px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--neutral-white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, var(--secondary-teal), var(--primary-blue));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 13px;
+            color: var(--neutral-gray);
+            font-weight: 500;
+        }
+
+        .header-badge {
+            background: linear-gradient(135deg, #E0E7FF, #C7D2FE);
+            color: #3730A3;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-teal) 100%);
+            color: var(--neutral-white);
+            padding: 70px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 750px;
+            margin: 0 auto 35px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px 35px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hero-cta p {
+            font-size: 18px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .arrow-icon {
+            font-size: 28px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        /* Trust Badges Section */
+        .trust-section {
+            background: var(--neutral-white);
+            padding: 60px 20px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .trust-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 35px;
+            text-align: center;
+        }
+
+        .trust-card {
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .trust-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .trust-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-teal), var(--success-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 18px;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+        }
+
+        .trust-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            margin-bottom: 8px;
+        }
+
+        .trust-desc {
+            font-size: 14px;
+            color: var(--neutral-gray);
+            line-height: 1.5;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .content-box {
+            background: var(--neutral-white);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 35px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #E2E8F0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--neutral-gray);
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Research Notice */
+        .research-notice {
+            background: linear-gradient(135deg, #E0E7FF, #C7D2FE);
+            border: 2px solid #6366F1;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 35px 0;
+            text-align: center;
+        }
+
+        .research-notice h4 {
+            color: #3730A3;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .research-notice p {
+            color: #4338CA;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Privacy Notice */
+        .privacy-box {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border-left: 5px solid #F59E0B;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 35px 0;
+            display: flex;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .privacy-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .privacy-content h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 10px;
+        }
+
+        .privacy-content p {
+            font-size: 15px;
+            color: #78350F;
+            line-height: 1.7;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+            margin-top: 35px;
+        }
+
+        .info-card {
+            background: linear-gradient(to bottom, var(--neutral-white), var(--neutral-light));
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--secondary-teal);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(20, 184, 166, 0.15);
+        }
+
+        .info-card-icon {
+            font-size: 56px;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .info-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            font-size: 15px;
+            color: var(--neutral-gray);
+            line-height: 1.7;
+        }
+
+        /* Process Steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--secondary-teal), var(--success-green));
+            color: var(--neutral-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0 auto 18px;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+        }
+
+        .step p {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--neutral-dark);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--neutral-dark);
+            color: var(--neutral-white);
+            padding: 50px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-topics {
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .footer-topics strong {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            margin: 30px 0;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links a {
+            color: var(--neutral-white);
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-top: 25px;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-cta p {
+                font-size: 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .trust-bar span {
+                display: block;
+                margin: 6px 0;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <span><span class="trust-bar-icon">🔒</span>HIPAA Compliant</span>
+        <span><span class="trust-bar-icon">🧪</span>Experimental Research Project</span>
+        <span><span class="trust-bar-icon">🏆</span>Trusted by Healthcare Professionals</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🩺</div>
+                <div class="logo-text">
+                    <h1>AI Medical Assistant</h1>
+                    <p>Healthcare Research Initiative</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span>🧪</span>
+                <span>Research Project</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Complete Your Health Assessment<br>Before Your Appointment</h2>
+            <p>Save time and get better care with our AI-powered medical assistant. Available 24/7 to collect your health information securely through voice or chat.</p>
+            
+            <div class="hero-cta">
+                <p>
+                    <span>Click "Let's talk" in the bottom-right corner to begin</span>
+                    <span class="arrow-icon">👉</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-section">
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-icon">🔒</div>
+                <div class="trust-title">HIPAA Compliant</div>
+                <div class="trust-desc">Your data is fully protected with enterprise-grade security</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">⚕️</div>
+                <div class="trust-title">Medical Grade AI</div>
+                <div class="trust-desc">Clinically validated and tested technology</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">🧪</div>
+                <div class="trust-title">Research Project</div>
+                <div class="trust-desc">Advancing healthcare through innovation</div>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon">⏱️</div>
+                <div class="trust-title">5-10 Minutes</div>
+                <div class="trust-desc">Quick and convenient assessment</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Research Notice -->
+        <div class="research-notice">
+            <h4><span>🧪</span> Experimental Research Project</h4>
+            <p>This is an experimental healthcare research initiative exploring AI-powered pre-consultation assessments. All data is collected for research purposes and handled with strict confidentiality and HIPAA compliance. Participation is voluntary and you can withdraw at any time.</p>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="privacy-box">
+            <div class="privacy-icon">🔒</div>
+            <div class="privacy-content">
+                <h4>Your Privacy & Security Are Protected</h4>
+                <p>All conversations are confidential and HIPAA compliant. Your medical information is encrypted end-to-end and transmitted securely to your healthcare provider. We never share your data with third parties. By using this service, you consent to the terms outlined in our consent form.</p>
+            </div>
+        </div>
+
+        <!-- What We Collect -->
+        <div class="content-box">
+            <h2 class="section-title">What Information We Collect</h2>
+            <p class="section-subtitle">Our AI assistant will have a natural conversation (voice or chat) to gather your complete health profile</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="info-card-icon">📋</span>
+                    <h3>Medical History</h3>
+                    <p>Past conditions, surgeries, hospitalizations, and family medical history</p>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">💊</span>
+                    <h3>Current Medications</h3>
+                    <p>All medications, supplements, dosages, and known drug allergies</p>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">🤒</span>
+                    <h3>Current Symptoms</h3>
+                    <p>Detailed description of symptoms, duration, severity, and triggers</p>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">❤️</span>
+                    <h3>Lifestyle Factors</h3>
+                    <p>Exercise habits, diet, stress levels, and daily routine</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="content-box">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Simple 4-step process to complete your pre-visit assessment</p>
+            
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>Click "Let's talk" button in bottom-right corner</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>Accept terms and choose voice or chat mode</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Answer health questions naturally</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p>Comprehensive summary sent to your doctor</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-topics">
+                <strong>Topics Covered in Your Assessment:</strong>
+                Personal Information • Medical History • Current Medications • Known Allergies • 
+                Current Symptoms • Previous Treatments • Family Medical History • Lifestyle Factors • 
+                Recent Lab Results • Immunization Records
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">HIPAA Notice</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Research Ethics</a>
+                <a href="#">Contact Support</a>
+            </div>
+            <div class="footer-copyright">
+                © 2024 Healthcare Research Initiative | AI Medical Pre-Consultation Project<br>
+                All patient information handled in compliance with HIPAA regulations<br>
+                This is an experimental research project
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vapi Widget with Exact Configuration -->
+    <vapi-widget
+        public-key="6a97989a-fa9a-4f07-9cb0-12cf9af20ae0"
+        assistant-id="9145e8f0-54ed-4f5e-99b5-10f87a76a2c3"
+        mode="voice"
+        theme="dark"
+        base-bg-color="#000000"
+        accent-color="#14B8A6"
+        cta-button-color="#000000"
+        cta-button-text-color="#ffffff"
+        border-radius="large"
+        size="full"
+        position="bottom-right"
+        title="Let's talk "
+        start-button-text="Start"
+        end-button-text="End Call"
+        chat-first-message="Hey, How can I help you today?"
+        chat-placeholder="Type your message..."
+        voice-show-transcript="true"
+        consent-required="true"
+        consent-title="Terms and conditions"
+        consent-content="By clicking "Agree," and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
+        consent-storage-key="vapi_widget_consent"
+    ></vapi-widget>
+    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async type="text/javascript"></script>
+</body>
+</html>
